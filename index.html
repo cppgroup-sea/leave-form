@@ -4,214 +4,185 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ระบบบันทึกวันลา</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap">
     <style>
-        /* --- Google Font: 'Prompt' --- */
-        @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap');
-
-        /* --- Sea Organic Theme --- */
-        :root {
-            --background-color: #F9F9F9; /* พื้นหลังเทาอ่อนๆ ให้ฟอร์มเด่นขึ้น */
-            --form-background: #FFFFFF;
-            --primary-text-color: #3a3a3a; /* สีเทาเข้มสำหรับตัวหนังสือ */
-            --secondary-text-color: #555555;
-            --accent-color: #5D9C59; /* สีเขียวหลักจากเว็บ Sea Organic */
-            --border-color: #E0E0E0; /* สีขอบเทาอ่อน */
-            --success-color: #4CAF50;
-            --font-family: 'Prompt', sans-serif; /* ฟอนต์หลัก */
-        }
-
         body {
-            font-family: var(--font-family);
-            background-color: var(--background-color);
-            color: var(--primary-text-color);
-            margin: 0;
-            padding: 20px;
+            font-family: 'Sarabun', sans-serif;
+            background-color: #f8f8f8; /* Light grey from sea-organic */
+            color: #333;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-        }
-
-        /* --- Form Container --- */
-        .form-container {
-            width: 100%;
-            max-width: 500px;
-            background-color: var(--form-background);
-            padding: 2.5em 3em;
-            border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
-            border: 1px solid var(--border-color);
+            margin: 0;
+            padding: 20px;
             box-sizing: border-box;
         }
-
-        /* --- Header --- */
-        header {
+        .container {
+            background-color: #ffffff;
+            padding: 2em 3em;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* Softer shadow */
+            max-width: 500px;
+            width: 100%;
             text-align: center;
+        }
+        .logo {
             margin-bottom: 1.5em;
         }
-
-        .logo {
-            max-width: 180px;
-            margin-bottom: 1em;
+        .logo img {
+            max-width: 150px; /* Adjust as needed */
+            height: auto;
         }
-
-        header h1 {
-            color: var(--primary-text-color);
-            font-weight: 600;
-            font-size: 1.8em;
-            margin: 0;
+        h1 {
+            color: #4CAF50; /* Organic green */
+            margin-bottom: 1.5em;
+            font-size: 2em;
         }
-
-        /* --- Form Elements Styling --- */
         .form-group {
             margin-bottom: 1.5em;
+            text-align: left;
         }
-
         label {
             display: block;
             margin-bottom: 0.6em;
-            font-weight: 500;
-            color: var(--secondary-text-color);
-            font-size: 0.95em;
+            font-weight: bold;
+            color: #555;
         }
-
         input[type="text"],
-        input[type="datetime-local"],
-        select {
+        select,
+        input[type="datetime-local"] {
             width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
+            padding: 0.9em;
+            border: 1px solid #e0e0e0; /* Lighter border */
+            border-radius: 5px;
             box-sizing: border-box;
-            font-family: var(--font-family);
+            font-family: 'Sarabun', sans-serif;
             font-size: 1em;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            background-color: #fefefe;
         }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 3px rgba(93, 156, 89, 0.2);
-        }
-        
-        /* --- Submit Button --- */
-        .submit-btn {
+        input[type="submit"] {
             width: 100%;
-            padding: 14px;
-            background-color: var(--accent-color);
+            padding: 1.1em;
+            background-color: #4CAF50; /* Organic green */
             color: white;
             border: none;
-            border-radius: 8px;
-            font-family: var(--font-family);
-            font-size: 1.1em;
-            font-weight: 500;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-
-        .submit-btn:hover {
-            background-color: #528a4e; /* ทำให้สีเข้มขึ้นเล็กน้อยเมื่อวางเมาส์ */
-        }
-        
-        .submit-btn:active {
-            transform: scale(0.98);
-        }
-
-        /* --- Success Message --- */
-        #success-message {
-            text-align: center;
-            color: var(--success-color);
-            font-weight: 500;
+            font-size: 1.1em;
+            font-family: 'Sarabun', sans-serif;
+            transition: background-color 0.3s ease, transform 0.2s ease;
             margin-top: 1em;
-            display: none; /* Hidden by default */
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+        input[type="submit"]:active {
+            transform: translateY(0);
+        }
+        .message {
+            text-align: center;
+            margin-top: 1.5em;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        #submitted-message {
+            color: #4CAF50;
+            display: none;
+        }
+        #submitting-message {
+            color: #007bff; /* A blue for submitting state */
+            display: none;
         }
 
+        @media (max-width: 600px) {
+            .container {
+                padding: 1.5em 2em;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            input[type="submit"] {
+                padding: 1em;
+                font-size: 1em;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <div class="form-container">
-        <header>
-            <img src="https://www.sea-organic.com/wp-content/uploads/2017/09/logo-tran.png" alt="Sea Organic Logo" class="logo">
-            <h1>ระบบบันทึกวันลา</h1>
-        </header>
-        
+    <div class="container">
+        <div class="logo">
+            <img src="https://www.sea-organic.com/wp-content/uploads/2017/09/logo-tran.png" alt="Sea Organic Logo">
+        </div>
+        <h1>ระบบบันทึกวันลา</h1>
         <form id="leave-form">
             <div class="form-group">
-                <label for="name-input">ชื่อผู้ลา</label>
-                <input 
-                    type="text" 
-                    id="name-input" 
-                    name="entry.1841315585" 
-                    placeholder="กรอกชื่อ"
-                    required>
+                <label for="name">ชื่อผู้ลา</label>
+                <input type="text" id="name" name="entry.1023031908" required>
             </div>
-
             <div class="form-group">
-                <label for="leave-type-select">ประเภทการลา</label>
-                <select id="leave-type-select" name="entry.101887384" required>
-                    <option value="" disabled selected>เลือกประเภทการลา</option>
+                <label for="leave-type">ประเภทการลา</label>
+                <select id="leave-type" name="entry.1040351892" required>
                     <option value="ลาป่วย">ลาป่วย</option>
                     <option value="ลากิจ">ลากิจ</option>
                     <option value="ลาพักร้อน">ลาพักร้อน</option>
                 </select>
             </div>
-
             <div class="form-group">
-                <label for="start-date-input">วันที่เริ่มลา</label>
-                <input 
-                    type="datetime-local" 
-                    id="start-date-input" 
-                    name="entry.1698711311" 
-                    required>
+                <label for="start-date">วันที่เริ่มลา</label>
+                <input type="datetime-local" id="start-date" name="entry.822713316" required>
             </div>
-
             <div class="form-group">
-                <label for="end-date-input">จะลาถึงวันที่</label>
-                <input 
-                    type="datetime-local" 
-                    id="end-date-input" 
-                    name="entry.1088435816" 
-                    required>
+                <label for="end-date">จะลาถึงวันที่</label>
+                <input type="datetime-local" id="end-date" name="entry.1156255359" required>
             </div>
-
-            <button type="submit" class="submit-btn">ส่งข้อมูล</button>
-            
-            <p id="success-message">✔️ ส่งข้อมูลเรียบร้อยแล้ว</p>
+            <input type="submit" id="submit-button" value="บันทึกข้อมูล">
+            <p id="submitting-message" class="message">กำลังส่งข้อมูล...</p>
+            <p id="submitted-message" class="message">ข้อมูลของท่านถูกบันทึกเรียบร้อยแล้ว</p>
         </form>
     </div>
 
     <script>
-        const form = document.getElementById('leave-form');
-        const successMessage = document.getElementById('success-message');
+        document.getElementById('leave-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // ป้องกันการรีเฟรชหน้าเว็บ
+            
+            var submitButton = document.getElementById('submit-button');
+            var submittingMessage = document.getElementById('submitting-message');
+            var submittedMessage = document.getElementById('submitted-message');
 
-        form.addEventListener('submit', function (e) {
-            e.preventDefault(); // Prevent the default form submission
+            submitButton.style.display = 'none'; // ซ่อนปุ่ม
+            submittingMessage.style.display = 'block'; // แสดงข้อความกำลังส่ง
 
-            const formData = new FormData(form);
-            const actionUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSf-Wl7tB3mKwf53cZW-qYmbhrtqLJXIN3wov2bKH0b_L-xmRA/formResponse';
-
-            fetch(actionUrl, {
-                method: 'POST',
-                body: formData,
-                mode: 'no-cors' // Important to bypass CORS and the Google confirmation page
-            })
-            .then(() => {
-                // Show success message
-                successMessage.style.display = 'block';
-                
-                // Reset the form fields
-                form.reset();
-                
-                // Hide the message after a few seconds
-                setTimeout(() => {
-                    successMessage.style.display = 'none';
-                }, 4000);
-            })
-            .catch(error => {
-                console.error('Error submitting form:', error);
-                alert('เกิดข้อผิดพลาดในการส่งข้อมูล');
-            });
+            var formData = new FormData(this);
+            // URL สำหรับส่งข้อมูลไปยัง Google Form (ต้องเป็น "formResponse" ไม่ใช่ "viewform")
+            var url = 'https://docs.google.com/forms/d/e/1FAIpQLSf-Wl7tB3mKwf53cZW-qYmbhrtqLJXIN3wov2bKH0b_L_xmRA/formResponse';
+            
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.onload = function () {
+                submittingMessage.style.display = 'none'; // ซ่อนข้อความกำลังส่ง
+                if (xhr.status === 200) {
+                    document.getElementById('leave-form').reset(); // ล้างข้อมูลในฟอร์ม
+                    submittedMessage.style.display = 'block'; // แสดงข้อความสำเร็จ
+                    setTimeout(function() {
+                        submittedMessage.style.display = 'none'; // ซ่อนข้อความสำเร็จ
+                        submitButton.style.display = 'block'; // แสดงปุ่มอีกครั้งหลังจากการส่งสำเร็จและข้อความหายไป
+                    }, 3000); // ข้อความจะหายไปใน 3 วินาที
+                } else {
+                    // กรณีเกิดข้อผิดพลาดในการส่งข้อมูล
+                    alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล กรุณาลองใหม่อีกครั้ง');
+                    submitButton.style.display = 'block'; // แสดงปุ่มอีกครั้งหากมีข้อผิดพลาด
+                }
+            };
+            xhr.onerror = function() {
+                submittingMessage.style.display = 'none';
+                alert('ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้ กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ต');
+                submitButton.style.display = 'block'; // แสดงปุ่มอีกครั้งหากมีข้อผิดพลาด
+            };
+            xhr.send(formData);
         });
     </script>
 
