@@ -49,6 +49,7 @@
         }
         input[type="text"],
         select,
+        textarea, /* เพิ่ม textarea ใน style นี้ */
         input[type="datetime-local"] {
             width: 100%;
             padding: 0.8em;
@@ -59,7 +60,8 @@
             font-size: 1rem;
         }
         input:focus,
-        select:focus {
+        select:focus,
+        textarea:focus { /* เพิ่ม textarea ใน style นี้ */
             border-color: #8db58d;
             outline: none;
         }
@@ -121,6 +123,11 @@
                     <option value="ลากิจ">ลากิจ</option>
                     <option value="ลาพักร้อน">ลาพักร้อน</option>
                 </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="leave-details">รายละเอียดการลา</label>
+                <textarea id="leave-details" name="entry.220479720" rows="4"></textarea> 
             </div>
             <div class="form-group">
                 <label for="start-date">วันที่เริ่มลา</label>
